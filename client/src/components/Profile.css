@@ -1,0 +1,47 @@
+.profile-container {
+    position: relative;
+    display: inline-block;
+    color: #fff;
+}
+
+.profile-icon {
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.3s;
+}
+
+.profile-icon:hover {
+    transform: scale(1.2);
+}
+
+.profile-menu {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #2c2c2c;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(236, 233, 233, 0.1);
+    padding: 20px;
+    z-index: 10;
+    width: 280px;
+}
+
+.logout-btn {
+    width: 100%;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+.dashboard-container {
+    margin-bottom: 15px;
+}

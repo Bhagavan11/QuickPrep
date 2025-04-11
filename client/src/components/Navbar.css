@@ -1,0 +1,56 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e1e1e;
+    padding: 15px 30px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #ff8c00, #ff0080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo span {
+    color: #00d4ff;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    color: #ff8c00;
+}
+
+.profile-icon {
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.profile-icon:hover {
+    color: #ff0080;
+}

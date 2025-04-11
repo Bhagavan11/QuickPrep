@@ -1,0 +1,100 @@
+.tech-news-section {
+    background-color: #0f172a;
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #3b82f6;
+    padding-left: 0.75rem;
+    color: #3b82f6;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.news-card {
+    background-color: #1e293b;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    border: 1px solid #334155;
+}
+
+.news-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
+}
+
+.news-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+}
+
+.news-source {
+    font-size: 0.875rem;
+    color: #cbd5e1;
+    margin-bottom: 0.75rem;
+}
+
+.news-link {
+    color: #3b82f6;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.news-link:hover {
+    text-decoration: underline;
+}
+
+.view-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.view-more-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.view-more-button:hover {
+    background-color: #2563eb;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

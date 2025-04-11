@@ -1,0 +1,80 @@
+/* Base Theme */
+body {
+    
+    background-color: rgb(3, 0, 0) !important;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    text-align: center;
+    padding: 40px 20px;
+    color: #ffffff;
+}
+
+/* Heading Style */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #00ffe7;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #00ffe7;
+}
+
+/* Layout for Charts */
+.charts-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* Chart Box Styling */
+.chart-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 255, 231, 0.3);
+    min-width: 350px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.chart-box:hover {
+    transform: scale(1.03);
+}
+
+/* Tooltip customization (optional override if needed) */
+.recharts-tooltip-wrapper {
+    color: #00ffe7;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Axis and Grid Lines */
+.recharts-cartesian-axis-line,
+.recharts-cartesian-axis-tick-line {
+    stroke: #666;
+}
+
+.recharts-cartesian-grid line {
+    stroke: #333;
+}
+
+/* Bar Chart Tooltip Labels */
+.recharts-tooltip-label {
+    color: #00ffe7 !important;
+}
+
+/* Optional: Responsive fix */
+@media (max-width: 768px) {
+    .charts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
