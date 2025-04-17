@@ -15,6 +15,9 @@ function Profile() {
 const handleDashBoardNavigation = () => {
     navigate('/DashBoard' );
   };
+  const handleMYNOTESNavigation=()=>{
+    navigate('/MyNotes')
+  }
   return (
     <div className="profile-container">
       <div className="profile-icon" onClick={() => setShowMenu(!showMenu)}>
@@ -25,6 +28,9 @@ const handleDashBoardNavigation = () => {
         <div className="profile-menu">
             <button className="logout-btn" onClick={handleDashBoardNavigation}>
           Dashboard 
+        </button>
+         <button className="logout-btn" onClick={handleMYNOTESNavigation}>
+          MY NOTES
         </button>
         
           <button className="logout-btn" onClick={handleLogout}>

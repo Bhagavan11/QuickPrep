@@ -5,11 +5,14 @@ import Navbar from './Navbar';
 import Profile from './Profile';
 import LatestJobs from './LatestJobs';
 import TechNews from './TechNews';
+import Company from './company';
+import Separator from './Separator';
+import Subject from './subject';
 const Home = () => {
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
   const location = useLocation(); 
-  const userName =localStorage.getItem('userName');  // Assuming userName is stored in local storage
+  const userName =localStorage.getItem('userName');  
   console.log('User Name:', userName);
   const [showProfile, setShowProfile] = useState(false);
 
@@ -71,8 +74,11 @@ const Home = () => {
        <div style={styles.profileContainer}>
         {showProfile && <Profile />}
       </div>
-      <LatestJobs />
-      <TechNews />
+      <Company/>
+      <Separator/>
+      <Subject/>
+      {/* <LatestJobs /> */}
+      {/* <TechNews /> */}
     </div>
   );
 };
@@ -84,27 +90,27 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
-    backgroundColor: '#f4f4f4',
+    backgroundColor: ' #0d0d0d',
+    padding: '10px', // Added padding for smaller screens
   },
-   profileContainer: {
-  width: '0px', 
-  textAlign: 'center',
-  // marginBottom: '20px',
-  // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  position: 'absolute',  // Positioning it freely
-  top: '-10px',  // Adjust this based on Navbar height
-  right: '10px',  // Keep it aligned to the right
-  // backgroundColor: 'white',
-  padding: '15px',
-  borderRadius: '8px',
-  zIndex: 1000,  // Ensure it's above other content
-},
+  profileContainer: {
+    width: '0px', 
+    textAlign: 'center',
+    position: 'absolute',
+    top: '-10px',  // Adjust this based on Navbar height
+    right: '10px',  // Keep it aligned to the right
+    padding: '15px',
+    borderRadius: '8px',
+    zIndex: 1000,  // Ensure it's above other content
+    transition: 'width 0.3s ease', // Smooth transition for the profile container
+  },
   main: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
     gap: '20px',
+    flexDirection: 'row', // Default for larger screens
   },
   navButton: {
     padding: '15px 30px',
@@ -123,6 +129,48 @@ const styles = {
     height: '100vh',
     fontSize: '20px',
     color: '#333',
+  },
+
+  // Media Queries for Responsiveness
+
+  // For Tablet screens and below (max-width: 768px)
+  '@media (max-width: 768px)': {
+    container: {
+      padding: '5px', // Less padding for smaller screens
+    },
+    profileContainer: {
+      top: '10px', // Slightly adjust for smaller screens
+      right: '5px', // Adjust for mobile view
+      width: 'auto', // Make the profile container visible with auto width
+    },
+    main: {
+      flexDirection: 'column', // Stack items vertically on smaller screens
+      gap: '15px',
+    },
+    navButton: {
+      padding: '12px 25px',
+      fontSize: '16px',
+    },
+  },
+
+  // For Mobile screens (max-width: 480px)
+  '@media (max-width: 480px)': {
+    container: {
+      padding: '0', // No padding for mobile view
+    },
+    profileContainer: {
+      top: '15px', // Adjust top margin further for mobile
+      right: '5px', 
+      width: 'auto', // Still keep it auto on mobile
+    },
+    main: {
+      flexDirection: 'column', // Stack items in column on mobile
+      gap: '10px', // Reduce gap for better mobile fit
+    },
+    navButton: {
+      padding: '10px 20px',
+      fontSize: '14px',
+    },
   },
 };
 

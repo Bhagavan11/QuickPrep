@@ -29,6 +29,8 @@ const styles = {
     padding: "15px",
     backgroundColor: "#222", // Same dark navbar background
     fontFamily: "'Poppins', sans-serif",
+    flexWrap: "wrap", // Allow wrapping on smaller screens
+    gap: "10px", // Space between items
   },
   logo: {
     display: "flex",
@@ -49,6 +51,31 @@ const styles = {
     fontWeight: "bold",
     textTransform: "uppercase",
     animation: "glow 1.5s infinite alternate",
+  },
+
+  // ✅ Media Queries for Responsiveness
+  "@media (max-width: 768px)": {
+    header: {
+      fontSize: "24px", // Slightly smaller font size on tablets
+      padding: "12px",
+    },
+    gradient: {
+      fontSize: "22px", // Smaller gradient text
+    },
+  },
+
+  "@media (max-width: 480px)": {
+    header: {
+      fontSize: "20px", // Smaller font size on mobile
+      padding: "10px",
+      justifyContent: "flex-start", // Align items to the left on small screens
+    },
+    gradient: {
+      fontSize: "18px", // Adjust gradient text size for mobile
+    },
+    username: {
+      marginLeft: "5px", // Smaller margin on mobile
+    },
   },
 };
 

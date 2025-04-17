@@ -10,6 +10,9 @@ import CodeEditorPage from './components/CodeEditorPage';
 // import Profile from './components/Profile';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
+import FAQ from './components/FAQ.js';
+import MyNotes from './components/MyNotes.jsx';
+import CompanyFaq from './components/company-faq.jsx';
 // Correct import
 
 const App = () => {
@@ -32,6 +35,9 @@ const App = () => {
           <Route path="/ProblemList" element={<ProblemList />} />
           <Route path="/codeeditor/:problem_id" element={<CodeEditorPage />} />
           <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/faq/:topic" element={<FAQ />} />
+          <Route path="/MyNotes" element={<MyNotes />} />
+          <Route path='/companyFaq/:company' element={<CompanyFaq/>}/>
         </Routes>
       </div>
     </Router>

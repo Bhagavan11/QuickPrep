@@ -1,9 +1,11 @@
 .App {
   text-align: center;
+  padding: 20px;
 }
 
 .App-logo {
   height: 40vmin;
+  max-width: 100%;
   pointer-events: none;
 }
 
@@ -20,19 +22,55 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(12px + 1.5vmin);
+  padding: 20px;
   color: white;
+  text-align: center;
 }
 
 .App-link {
   color: #61dafb;
+  font-size: 1rem;
 }
 
+/* Spinner animation */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* ✅ Responsive layout tweaks */
+@media (max-width: 768px) {
+  .App-header {
+    font-size: calc(10px + 1.2vmin);
+    padding: 15px;
+  }
+
+  .App-logo {
+    height: 50vmin;
+  }
+
+  .App-link {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    font-size: calc(9px + 1vmin);
+    padding: 10px;
+  }
+
+  .App-logo {
+    height: 60vmin;
+  }
+
+  .App-link {
+    font-size: 0.9rem;
   }
 }

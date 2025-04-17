@@ -17,6 +17,7 @@ const TechNews = () => {
       setLoading(false);
     } catch (err) {
       console.error("Fetch error:", err);
+      setNews([])
       setError("Failed to fetch data from server");
       setLoading(false);
     }
@@ -47,7 +48,8 @@ const TechNews = () => {
       <div className="latest-jobs-container">
           <h2 className="section-title">Latest Tech News</h2>
           <div className="jobs-grid">
-              {news.slice(0, visibleNews).map((article, index) => (
+
+              {news?.slice(0, visibleNews).map((article, index) => (
             <div key={index} className="job-card">
               <h3>{article.title}</h3>
               <p>{article.summary}</p>

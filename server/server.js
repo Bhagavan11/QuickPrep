@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: 'http://localhost:3000',
-    methods: ["POST", "GET"],
+     methods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
     credentials: true,
   })
 );
@@ -277,6 +277,219 @@ app.post("/analyze", async (req, res) => {
     res.status(500).json({ error: "Failed to analyze the code" });
   }
 });
+app.get("/faq/:topic", async (req, res) => {
+  const topic = req.params.topic;
+
+  if (!topic) {
+    return res.status(400).json({ error: "Topic must be selected" });
+  }
+
+  console.log("Topic selected:", topic);
+
+  const prompt = `Generate a list of the most frequently asked and most important interview questions with answers for the topic: ${topic}.
+These questions should help someone prepare for interviews at top companies like Amazon, Microsoft, Google, TCS, etc. Use real-world examples if possible and explain in detail assuming I know nothing about the topic.
+Return the output strictly in JSON array format like:
+
+[
+  {
+    "question": "What is ${topic}-related question 1?",
+    "answer": "Answer to question 1."
+  }
+  ...
+]
+
+Respond with ONLY valid raw JSON array. Do NOT include any text before or after the array. Do NOT use markdown formatting. Do NOT include backticks. Use only plain ASCII double quotes (") for strings.
+ Limit to 20 high-quality Q&A pairs.`
+
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const result = await model.generateContent(prompt);
+
+    const candidate = result?.response?.candidates?.[0];
+    const text = candidate?.content?.parts?.[0]?.text;
+
+    if (!text) {
+      console.error("No valid text returned from Gemini");
+      return res.status(500).json({ error: "Invalid response from Gemini API" });
+    }
+
+    let cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .replace(/[“”]/g, '"')
+      .replace(/[‘’]/g, "'")
+      .replace(/\r/g, "")
+      .trim();
+
+    const jsonStart = cleaned.indexOf("[");
+    const jsonEnd = cleaned.lastIndexOf("]");
+    if (jsonStart === -1 || jsonEnd === -1) {
+      console.error("Could not locate JSON brackets in Gemini response");
+      return res.status(500).json({ error: "JSON structure missing in Gemini output" });
+    }
+
+    const jsonText = cleaned.substring(jsonStart, jsonEnd + 1);
+
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonText);
+    } catch (e) {
+      console.error("JSON Parse Error:", e.message);
+      console.error("Bad JSON snippet:", jsonText.slice(0, 500)); // log part of the response
+      return res.status(500).json({ error: "Failed to parse JSON from Gemini" });
+    }
+
+    const formatted = parsed.map(q => ({ ...q, showAnswer: false }));
+
+    res.json(formatted);
+  } catch (err) {
+    console.error("Gemini API Error:", err.message || err);
+    res.status(500).json({ error: "Gemini API call failed" });
+  }
+});
+
+app.get("/faq/:company", async (req, res) => {
+  const company = req.params.company;
+  console.log("comapny is",company)
+
+  if (!company) {
+    return res.status(400).json({ error: "Topic must be selected" });
+  }
+
+  console.log("company selected:", company);
+
+  const prompt = ` i am preparing the company ${company} i need to crack the intrview and intial round so i want ypu to Generate a list of the most frequently asked and most important interview questions with answers by company: ${company}.
+These questions should help to crack the  technical intrview for the company ${company}. Use real-world examples if possible and explain in detail assuming I know nothing about the topic.
+Return the output strictly in JSON array format like:
+
+[
+  {
+    "question": "question 1?",
+    "answer": "Answer to question 1."
+  }
+  ...
+]
+
+Respond with ONLY valid raw JSON array. Do NOT include any text before or after the array. Do NOT use markdown formatting. Do NOT include backticks. Use only plain ASCII double quotes (") for strings.
+ Limit to 20 high-quality Q&A pairs.`
+
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const result = await model.generateContent(prompt);
+
+    const candidate = result?.response?.candidates?.[0];
+    const text = candidate?.content?.parts?.[0]?.text;
+
+    if (!text) {
+      console.error("No valid text returned from Gemini");
+      return res.status(500).json({ error: "Invalid response from Gemini API" });
+    }
+
+    let cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .replace(/[“”]/g, '"')
+      .replace(/[‘’]/g, "'")
+      .replace(/\r/g, "")
+      .trim();
+
+    const jsonStart = cleaned.indexOf("[");
+    const jsonEnd = cleaned.lastIndexOf("]");
+    if (jsonStart === -1 || jsonEnd === -1) {
+      console.error("Could not locate JSON brackets in Gemini response");
+      return res.status(500).json({ error: "JSON structure missing in Gemini output" });
+    }
+
+    const jsonText = cleaned.substring(jsonStart, jsonEnd + 1);
+
+    let parsed;
+    try {
+      parsed = JSON.parse(jsonText);
+    } catch (e) {
+      console.error("JSON Parse Error:", e.message);
+      console.error("Bad JSON snippet:", jsonText.slice(0, 500)); // log part of the response
+      return res.status(500).json({ error: "Failed to parse JSON from Gemini" });
+    }
+
+    const formatted = parsed.map(q => ({ ...q, showAnswer: false }));
+    console.log("company questions",formatted)
+    res.json(formatted);
+  } catch (err) {
+    console.error("Gemini API Error:", err.message || err);
+    res.status(500).json({ error: "Gemini API call failed" });
+  }
+});
+
+
+// Save note
+app.post("/notes/save", async (req, res) => {
+  const { username, topic, question, answer, note_type } = req.body;
+  console.log(" igot it", username, topic, question, answer, note_type)
+
+  if (!username || !note_type || (!question && !answer)) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  try {
+    const result = await client.query(
+      `INSERT INTO notes (username, topic, question, answer, note_type)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING *`,
+      [username, topic, question, answer, note_type]
+    );
+
+    res.status(201).json({ message: "Note saved", note: result.rows[0] });
+  } catch (err) {
+    console.error("Error saving note:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+//fetch notes
+
+app.get('/fetchNotes/:userName',async(req,res)=>{
+
+  const username=req.params.userName;
+  console.log("i am fetching notes of user",username)
+  try {
+    const Notes=await client.query(`select * from notes where username=$1`,[username])
+    console.log("fetched Notes",Notes)
+     return res.json(Notes)
+  } catch (error) {
+    console.log("error fetching notes",error)
+    return res.json(error)
+    
+  }
+  
+ 
+})
+
+app.delete('/deleteNote/:noteId', (req, res) => {
+  const id = req.params.noteId;
+  console.log("Note ID to be deleted:", id);
+
+  try {
+    client.query('DELETE FROM notes WHERE id = $1', [id], (err, result) => {
+      if (err) {
+        console.error('Error deleting note:', err);
+        return res.status(500).send('Error deleting the note');
+      }
+
+      if (result.rowCount === 0) {
+        return res.status(404).send('Note not found');
+      }
+
+      res.status(200).send('Note deleted successfully');
+    });
+  } catch (error) {
+    console.error('Server error:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+
+
 
 
 

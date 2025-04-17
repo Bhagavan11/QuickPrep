@@ -54,3 +54,140 @@
 .profile-icon:hover {
     color: #ff0080;
 }
+
+.nav-links li {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.nav-links li:hover {
+    color: #f39c12;
+}
+
+.profile-icon {
+    cursor: pointer;
+}
+
+/* FAQ Dropdown */
+.faq-dropdown {
+    background-color: #ecf0f1;
+    padding: 10px 15px;
+    border-radius: 8px;
+    position: absolute;
+    top: 60px;
+    right: 100px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    color: #2c3e50;
+    z-index: 999;
+}
+
+.faq-dropdown ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.faq-dropdown ul li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.faq-dropdown ul li:hover {
+    background-color: #dcdde1;
+}
+
+/* Subtopics under WEB DEVELOPMENT */
+.subtopics {
+    margin-left: 15px;
+    margin-top: 5px;
+    background-color: #f5f6fa;
+    padding: 5px 10px;
+    border-left: 2px solid #f39c12;
+    border-radius: 4px;
+}
+
+.subtopics li {
+    padding: 5px 0;
+    border: none;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For Tablets and Below (max-width: 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .nav-links {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .profile-icon {
+        margin-top: 10px;
+        font-size: 20px;
+    }
+
+    /* FAQ Dropdown - Adjust positioning for mobile */
+    .faq-dropdown {
+        position: static;
+        box-shadow: none;
+        padding: 15px;
+        margin-top: 10px;
+    }
+}
+
+/* For Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+
+    .logo {
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .nav-links li {
+        margin: 8px 0;
+        font-size: 16px;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+    }
+
+    .profile-icon {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+
+    /* FAQ Dropdown - Adjust for mobile */
+    .faq-dropdown {
+        width: 100%;
+        padding: 12px;
+        box-shadow: none;
+        margin-top: 5px;
+    }
+
+    /* Hide profile icon on small mobile view for better space usage */
+    .profile-icon {
+        display: none;
+    }
+}

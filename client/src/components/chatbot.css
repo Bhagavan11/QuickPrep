@@ -6,6 +6,8 @@
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
+    padding: 10px;
+    /* Added padding for small screens */
 }
 
 .chatContainer {
@@ -109,4 +111,88 @@
 
 .sendButton:hover {
     background-color: #1565c0;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablets and smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .chatContainer {
+        max-width: 100%;
+        /* Make chat container take full width on tablets */
+        height: 90%;
+        /* Slightly increase height */
+    }
+
+    .messages {
+        padding: 12px;
+        /* Adjust padding */
+    }
+
+    .userMessage,
+    .botMessage {
+        max-width: 90%;
+        /* Allow more width for messages */
+    }
+
+    .input {
+        font-size: 16px;
+        /* Increase font size for better readability */
+    }
+
+    .sendButton {
+        font-size: 16px;
+        /* Bigger send button text */
+        padding: 12px 24px;
+        /* Bigger send button */
+    }
+}
+
+/* Mobile screens (max-width: 480px) */
+@media (max-width: 480px) {
+    .chatContainer {
+        max-width: 100%;
+        /* Full width on mobile */
+        height: 100%;
+        /* Full height for the chat container */
+        border-radius: 10px;
+        /* Smaller border-radius */
+    }
+
+    .messages {
+        padding: 10px;
+        /* Less padding on mobile */
+    }
+
+    .userMessage,
+    .botMessage {
+        max-width: 95%;
+        /* Allow more space for messages */
+        padding: 8px;
+        /* Smaller padding */
+    }
+
+    .syntaxHighlighter {
+        padding: 8px;
+        /* Smaller syntax highlighter */
+    }
+
+    .input {
+        padding: 8px;
+        /* Smaller input padding */
+        font-size: 14px;
+        /* Smaller font size for input */
+    }
+
+    .sendButton {
+        padding: 8px 16px;
+        /* Smaller send button */
+        font-size: 14px;
+        /* Smaller send button text */
+    }
+
+    .copyButton {
+        padding: 6px;
+        /* Smaller copy button */
+    }
 }
